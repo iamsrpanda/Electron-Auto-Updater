@@ -1,0 +1,72 @@
+{
+  "name": "auto_updater",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "build --dir",
+    "build": "electron-builder"
+  },
+  "author": "Smrutiranjan Panda",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^20.1.1",
+    "electron-builder": "^23.3.3"
+  },
+  "build": {
+    "deb": {
+      "synopsis": "Auto Updater APP",
+      "afterInstall": "./scripts/debian-add-repo.sh",
+      "afterRemove": "./scripts/debian-uninstaller.sh"
+    },
+    "snap": {
+      "synopsis": "Auto Updater APP"
+    },
+    "dmg": {
+      "iconSize": 100,
+      "contents": [
+        {
+          "x": 380,
+          "y": 280,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 110,
+          "y": 280,
+          "type": "file"
+        }
+      ],
+      "window": {
+        "width": 500,
+        "height": 500
+      }
+    },
+    "win": {
+      "publish": [
+        {
+          "provider": "github",
+          "owner": "iamsrpanda",
+          "repo": "https://github.com/iamsrpanda/Electron-Auto-Updater"
+        }
+      ],
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "allowToChangeInstallationDirectory": true,
+      "oneClick": false,
+      "perMachine": false
+    }
+  },
+  "dependencies": {
+    "electron-updater": "^5.2.1"
+  }
+}
